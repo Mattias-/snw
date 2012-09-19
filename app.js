@@ -18,6 +18,7 @@ app.get('/', function(req, res){
 
 app.get('/u/:username', user.view);
 app.get('/p/add', post.add);
+app.post('/p/add', post.add);
 
 app.listen(config.app.port);
 
