@@ -1,0 +1,9 @@
+<h2>Log of {{user_log.username}}</h2>
+{{#each user_log.posts}}
+<div class="post">
+    <p>{{date}} by {{../user_log.username}}</p>
+    {{#each elements}}
+    {{{content}}}
+    {{/each}}
+</div>
+{{/each}}
