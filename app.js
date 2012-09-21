@@ -12,13 +12,34 @@ app.set('view engine', 'hbs');
 app.set('view options', {layout: false});
 app.set('views', __dirname + '/views');
 
-app.get('/', function(req, res){
+var auth = function(req, res, next){
+  console.log('In auth');
+  // if cookie set session
+  // if session parse etc.. set loggedin
+    req.user = 'admin';
+    req.authed = true;
+    next();
+};
+
+var requireAuth = function(req, res, next){
+  console.log('In requireAuth');
+  if(!req.authed){// and user is set
+     console.log('error not authed');
+       next(new Error('Unauthorized'));
+  } else {
+    next();
+  }
+};
+
+
+app.get('/', auth, function(req, res){
   res.render('index', {title: 'A simple app', name:'Mattias'});
 });
 
 app.get('/u/:username', user.view);
-app.get('/p/add', post.add);
-app.post('/p/add', post.add);
+app.get('/u/', auth, user.useAuthedUser, user.view);
+//app.get('/p/add', post.add);
+app.post('/p/add', auth, requireAuth, post.add);
 
 app.listen(config.app.port);
 

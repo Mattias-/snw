@@ -11,16 +11,26 @@ hbs.registerHelper('stringify', function(obj){return JSON.stringify(obj, null, "
 
 post.add = function (req, res){
   res.render('stringify', {data: [req.body, req.query]});
-//  core.db.open(function(err, con){
-//    assert.equal(null, err);
-//    con.collection('log', function(err, collection){
-//      collection.findOne({postname: req.params.postname},function(err, log) {
-//        assert.equal(null, err);
-//        res.render('post/view',{title: 'really', post_log: log});
-//        con.close();
-//      });
-//    });
-//  });
+  var post = {
+    date: req.body.date, //new Date().toISOString(),
+    elements: [{
+      type: "text",
+      position: 1,
+      content: req.body.content
+    }]
+  };
+  core.db.open(function(err, con){
+    assert.equal(null, err);
+    con.collection('log', function(err, log){
+      log.update({username: 'admin'}, {$push:{posts:post}}, {safe:true},
+        function(err, result) {
+          assert.equal(null, err);
+          console.log(result)
+          //res.render('post/view',{title: 'really', post_log: log});
+          con.close();
+      });
+    });
+  });
 };
 
 
