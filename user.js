@@ -28,7 +28,7 @@ user.view = function (req, res){
 
 
 user.useAuthedUser = function(req, res, next){
-  if(req.authed){//and user
+  if(req.user){
     req.params.username = req.user;
     next();
   } else {
