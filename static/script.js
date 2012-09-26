@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  $("#postForm").submit(function(event) {
+  $(".postForm").submit(function(event) {
     event.preventDefault(); 
     var form = $(this);
     var data = form.serialize();

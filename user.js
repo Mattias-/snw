@@ -28,8 +28,8 @@ user.view = function (req, res){
 
 
 user.useAuthedUser = function(req, res, next){
-  if(req.user){
-    req.params.username = req.user;
+  if(req.session.user){
+    req.params.username = req.session.user;
     next();
   } else {
     next(new Error('Unauthorized'));

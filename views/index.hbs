@@ -1,7 +1,13 @@
 <h1>{{title}}</h1>
-<p>and Hello {{name}}</p>
-<form action="/p/add" id="postForm">
-  <input type="text" name="date"/>
-  <input type="text" name="content"/>
-  <input type="submit" value="Send" />
+<p>Hello {{name}}</p>
+{{#if loggedin}}
+<form action="/logout" method="post">
+  <input type="submit" value="Log Out" />
 </form>
+{{else}}
+<form action="/login" method="post" class="loginForm">
+  Name:<input type="text" name="username"/>
+  Password:<input type="password" name="password"/>
+  <input type="submit" value="Log In" />
+</form>
+{{/if}}
