@@ -3,6 +3,7 @@ module.exports = user;
 
 var assert = require('assert');
 var hbs = require('hbs');
+var _ = require('underscore');
 
 var core = require('./core');
 
@@ -16,9 +17,12 @@ user.view = function (req, res){
       log.findOne({username: req.params.username}, function(err, result) {
         assert.equal(null, err);
         if(result == null){
-          res.render('stringify', {data:"No user "+req.params.username+" found!"});
+          res.send("No user "  + req.params.username + " found!")
         } else {
-          res.render('user/view',{title: 'snw - '+req.params.username, user_log: result});
+          res.render('user/view',_.extend(res.locals.layoutValues,{
+            title: 'snw - '+req.params.username,
+            user_log: result
+          }));
         }
         con.close();
       });
