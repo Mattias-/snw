@@ -22,7 +22,7 @@ post.add = function (req, res){
   core.db.open(function(err, con){
     assert.equal(null, err);
     con.collection('log', function(err, log){
-      log.update({username: 'admin'}, {$push:{posts:post}}, {safe:true},
+      log.update({username: req.session.user}, {$push:{posts:post}}, {safe:true},
         function(err, result) {
           assert.equal(null, err);
           console.log(result)

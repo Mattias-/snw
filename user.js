@@ -30,6 +30,15 @@ user.view = function (req, res){
   });
 };
 
+user.follow = function(req, res){
+  core.db.open(function(err, con){
+    assert.equal(null, err);
+    con.collection('users', function(err, users){
+      //users.update({username: req.params.username}) push unique
+    });
+  });
+};
+
 
 user.useAuthedUser = function(req, res, next){
   if(req.session.user){

@@ -1,1 +1,8 @@
 <p>This is index</p>
+{{#if authenticated}}
+<form action="/p/add" class="postForm">
+  Date:<input type="text" name="date"/>
+  Content:<input type="text" name="content"/>
+  <input type="submit" value="Send" />
+</form>
+{{/if}}
