@@ -10,7 +10,7 @@ hbs.registerHelper('whatis', function(obj) {console.log(obj)});
 hbs.registerHelper('stringify', function(obj){return JSON.stringify(obj, null, "  ")});
 
 post.add = function (req, res){
-  res.render('stringify', {data: [req.body, req.query]});
+  res.json({data: [req.body, req.query]});
   var post = {
     date: req.body.date, //new Date().toISOString(),
     elements: [{

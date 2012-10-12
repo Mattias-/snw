@@ -34,7 +34,19 @@ user.follow = function(req, res){
   core.db.open(function(err, con){
     assert.equal(null, err);
     con.collection('users', function(err, users){
-      //users.update({username: req.params.username}) push unique
+      users.update({username: req.session.user},
+                   {$addToSet:{following:req.params.username}},
+                   function(err, result){
+                     users.update({username: req.params.username},
+                       {$addToSet:{followedBy: req.session.user}},
+                       function(err, result){
+                         //TODO handle all results
+                         console.log('%s is now following %s', req.session.user,
+                                 req.params.username);
+                         res.json({followed:true});
+                         con.close();
+                     });
+      });
     });
   });
 };

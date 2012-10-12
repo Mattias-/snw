@@ -3,10 +3,15 @@ module.exports = auth;
 
 var assert = require('assert');
 var hbs = require('hbs');
+var _ = require('underscore');
 
 var core = require('./core');
 
 hbs.registerHelper('whatis', function(obj) {console.log(obj)});
+
+auth.loggedIn = function(req){
+  return _.isObject(req.session) && _.isString(req.session.user);
+}
 
 auth.requireAuth = function(req, res, next){
   console.log('In requireAuth user: %s', req.session.user);
