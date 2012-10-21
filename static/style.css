@@ -1,3 +1,15 @@
-html {
-  font: 10 px sans-serif;  
+body{
+  background: #fff url('/whitey.png') repeat;  
 }
+
+.navbar{
+  margin: 1em auto;
+  width: 90%;
+}
+
+ul.nav li.dropdown:hover ul.dropdown-menu{
+        display: block;    
+}
+.navbar .dropdown-menu {
+     margin-top: 0px;
+ }

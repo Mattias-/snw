@@ -51,6 +51,26 @@ user.follow = function(req, res){
   });
 };
 
+user.unfollow = function(req, res){
+  core.db.open(function(err, con){
+    assert.equal(null, err);
+    con.collection('users', function(err, users){
+      users.update({username: req.session.user},
+                   {$pull:{following:req.params.username}},
+                   function(err, result){
+                     users.update({username: req.params.username},
+                       {$pull:{followedBy: req.session.user}},
+                       function(err, result){
+                         //TODO handle all results
+                         console.log('%s is no longer following %s', req.session.user,
+                                 req.params.username);
+                         res.json({unfollowed:true});
+                         con.close();
+                     });
+      });
+    });
+  });
+};
 
 user.useAuthedUser = function(req, res, next){
   if(req.session.user){

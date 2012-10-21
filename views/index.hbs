@@ -8,8 +8,8 @@
 
 {{#each feed}}
   {{#each posts}}
-    <div class="post">
-        <p>{{date}} by {{../username}}</p>
+    <div class="post well">
+        <p>{{date}} by <a href="/u/{{../username}}">{{../username}}</a></p>
         {{#each elements}}
         {{{content}}}
         {{/each}}

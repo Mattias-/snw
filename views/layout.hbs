@@ -1,25 +1,46 @@
+<!DOCTYPE html>
 <html>
   <head>
     <title>{{title}}</title>
     <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css" />
     <script src="/jquery-1.8.1.js"></script>
     <script src="/script.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
   </head>
   <body>
-    <h1>{{title}}</h1>
-    {{#if authenticated}}
-    <p>Hello {{name}}</p>
-    <form action="/logout" method="post">
-      <input type="submit" value="Log Out" />
-    </form>
-    {{else}}
-    <p>Why don't you log in?</p>
-    <form action="/login" method="post" class="loginForm">
-      Name:<input type="text" name="username"/>
-      Password:<input type="password" name="password"/>
-      <input type="submit" value="Log In" />
-    </form>
-    {{/if}}
+<div class="navbar">
+              <div class="navbar-inner">
+                <div class="container">
+                  <a class="brand" href="/">{{title}}</a>
+                    <ul class="nav">
+                      <li class="active"><a href="#">Home</a></li>
+                      <li><a href="#">Link</a></li>
+                    </ul>
+                    <ul class="nav pull-right">
+{{#if authenticated}}
+                      <li class="dropdown">
+                        <a href="/u/{{name}}">{{name}}<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                          <li><a href="/u/{{name}}">My Profile</a></li>
+                          <li><a href="/u/{{name}}/settings">Settings</a></li>
+                          <li class="divider"></li>
+                          <li><a href="/logout">Log Out</a></li>
+                        </ul>
+                      </li>
+{{else}}
+                      <form action="/login" method="post" class="loginForm navbar-form pull-left">
+                        <input type="text" class="span2" placeholder="Username" name="username"/>
+                        <input type="password" class="span2" placeholder="Password" name="password"/>
+                        <button type="submit" class="btn">Log In</button>
+                      </form>
+{{/if}}
+                    </ul>
+                </div>
+              </div><!-- /navbar-inner -->
+            </div>
+<div class="container">
     {{{body}}}
+    </div>
   </body>
 </html>

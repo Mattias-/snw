@@ -43,7 +43,7 @@ app.get('/', getLocals, function(req, res){
                                     log.find({username:{$in:user.following}}).toArray(
                                     function(err, userFeed){
                                       res.render('index', _.extend(res.locals.layoutValues,{feed:userFeed}));
-                                      console.log(userFeed);
+                                      //console.log(userFeed);
                                       con.close();
                                     });
                      });
@@ -62,6 +62,7 @@ app.get('/logout', auth.logout);
 app.get('/u/:username', getLocals, user.view);
 app.get('/u/:username/follow', auth.requireAuth, user.follow);
 app.post('/u/:username/follow', auth.requireAuth, user.follow);
+app.get('/u/:username/unfollow', auth.requireAuth, user.unfollow);
 app.get('/u/', getLocals, user.useAuthedUser, user.view);
 //app.get('/p/add', post.add);
 app.post('/p/add', auth.requireAuth, post.add);
